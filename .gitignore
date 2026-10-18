@@ -1,0 +1,47 @@
+# Lokalne artefakty labu (odtwarzane skryptami)
+vendor/
+run/
+evidence/
+.lab-net/
+
+# Wygenerowane PDF-y Typst (źródła .typ idą do gita)
+docs/out/
+docs/*.pdf
+
+# Zrzuty — trzymajcie lokalnie albo dodawajcie świadomie (odkomentujcie regułę poniżej jeśli chcecie commitować figures/)
+# docs/figures/*.png
+# docs/figures/*.jpg
+
+# Kompilaty Java
+lab/vulnerable/out/
+lab/exploit/out/
+lab/mitigated/out/
+*.class
+
+# Runtime Minecraft
+lab/minecraft/world/
+lab/minecraft/logs/
+lab/minecraft/libraries/
+lab/minecraft/versions/
+lab/minecraft/*.jar
+lab/minecraft/usercache.json
+lab/minecraft/ops.json
+lab/minecraft/banned-*.json
+lab/minecraft/whitelist.json
+lab/minecraft/session.lock
+lab/minecraft/*.lock
+
+# Nix / IDE / OS
+result
+result-*
+.direnv/
+.aider*
+*.qcow2
+*.pcap
+*.log
+.DS_Store
+*~
+*.swp
+.idea/
+.vscode/
+*.iml
