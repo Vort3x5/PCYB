@@ -1,43 +1,33 @@
 # Log4Shell (CVE-2021-44228) — Minecraft / PCYB
 
-Zespół: **antena izotropowa 40dBi**
+Zespół: **antena izotropowa 40dBi** · ścieżka indywidualna (red + blue/purple)
 
-Izolowany lab Nix: demonstracja Log4Shell, monitoring i mitygacja.
-
-## Start
+## Faza 1 — atak
 
 ```bash
 nix develop
-./scripts/fetch-vendor.sh   # jary (nie są w gicie)
+./scripts/fetch-vendor.sh
 ./scripts/run-full-lab.sh
 ```
 
-Dokumenty: uzupełnij `docs/zespol.typ`, potem `./scripts/build-docs.sh` → `docs/out/*.pdf`.
+## Faza 2 — detekcja / IR
 
-Scenariusz: [`docs/SCENARIO.md`](docs/SCENARIO.md).
+```bash
+./scripts/run-faza2.sh
+# wyniki: evidence/faza2/
+```
 
-Na GitHubie nie ma `vendor/`, `evidence/`, `run/`, worldów MC ani wygenerowanych PDF — to powstaje lokalnie.
+Dokumenty: `docs/zespol.typ` → `./scripts/build-docs.sh` → `docs/out/*.pdf`.
 
+## Podział
 
-## Etapy
+| Osoba | Faza 1 | Faza 2 |
+|-------|--------|--------|
+| Piotr Świtaj | środowisko, topologia | powtarzalność labu na VM |
+| Michał Kopyciński | atak Log4Shell, mitygacja | artefakty pod analizę |
+| Szymon Boniuk | monitoring, dokumentacja | detekcja, timeline, raport F2 |
 
-| Etap | Zakres | Komendy |
-|------|--------|---------|
-| 2 | Środowisko | `nix develop`, `./scripts/verify-env.sh`, `./scripts/lab-topology.sh localhost` |
-| 3 | Cel | `./scripts/start-mc-server.sh`, `./scripts/build-all.sh` |
-| 4 | Atak | `./scripts/start-http-payload.sh`, `start-ldap.sh`, `start-listener.sh` |
-| 5 | Monitoring | `./scripts/start-monitor.sh` |
-| 6 | PoC + mitygacja | `./scripts/run-vulnerable.sh`, `./scripts/run-mitigated.sh flag\|patched` |
-
-## Topologia
-
-| Rola | netns | localhost |
-|------|-------|-----------|
-| mc-server | 10.42.0.10 | :25565 |
-| mc-client | 10.42.0.20 | klient 1.16.5 |
-| attacker | 10.42.0.30 | LDAP :1389, HTTP :8888, listen :4444 |
-
-Minecraft (GUI): [`scripts/trigger-mc-chat.md`](scripts/trigger-mc-chat.md).
+Szczegóły: [`docs/SCENARIO.md`](docs/SCENARIO.md).
 
 ```bash
 ./scripts/stop-lab.sh

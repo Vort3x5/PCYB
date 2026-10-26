@@ -6,4 +6,5 @@ mkdir -p "$ROOT/docs/out"
 cd "$ROOT/docs"
 typst compile pit-stop.typ out/pit-stop.pdf
 typst compile raport-faza1.typ out/raport-faza1.pdf
+typst compile raport-faza2.typ out/raport-faza2.pdf
 ls -lh out/*.pdf

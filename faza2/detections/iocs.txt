@@ -1,0 +1,15 @@
+# Wskaźniki Log4Shell — skanowane przez scripts/detect-log4shell.py
+# Jedna linia = jeden wzorzec (podciąg, case-insensitive), # = komentarz
+
+${jndi:ldap://
+${jndi:rmi://
+${jndi:dns://
+${jndi:ldaps://
+${::-j}ndi
+${lower:${jndi
+Exploit.class
+marshalsec
+LDAP reference result
+redirecting to http://
+pwned
+trustURLCodebase

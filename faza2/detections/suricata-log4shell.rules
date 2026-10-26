@@ -1,0 +1,21 @@
+# Suricata — wskaźniki Log4Shell (CVE-2021-44228), lab PCYB
+# Użycie: suricata -r evidence/*.pcap -S faza2/detections/suricata-log4shell.rules
+
+alert tcp any any -> any any (msg:"PCYB Log4Shell JNDI LDAP in TCP payload"; \
+  content:"${jndi:ldap://"; nocase; classtype:attempted-user; sid:202144201; rev:1;)
+
+alert tcp any any -> any any (msg:"PCYB Log4Shell JNDI RMI in TCP payload"; \
+  content:"${jndi:rmi://"; nocase; classtype:attempted-user; sid:202144202; rev:1;)
+
+alert tcp any any -> any any (msg:"PCYB Log4Shell JNDI DNS in TCP payload"; \
+  content:"${jndi:dns://"; nocase; classtype:attempted-user; sid:202144203; rev:1;)
+
+alert tcp any any -> any any (msg:"PCYB Log4Shell obfuscated lower JNDI"; \
+  content:"${lower:${"; nocase; content:"jndi"; nocase; classtype:attempted-user; \
+  sid:202144204; rev:1;)
+
+alert tcp any any -> any 1389 (msg:"PCYB suspicious LDAP to port 1389"; \
+  classtype:trojan-activity; sid:202144210; rev:1;)
+
+alert http any any -> any any (msg:"PCYB HTTP download of Java .class"; \
+  http.uri; content:".class"; endswith; classtype:trojan-activity; sid:202144220; rev:1;)
