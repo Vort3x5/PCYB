@@ -2,7 +2,7 @@
 set -euo pipefail
 source "$(cd "$(dirname "$0")" && pwd)/lib.sh"
 
-for name in mc-server victim-strace tcpdump listener ldap http; do
+for name in mc-feed mc-server victim-strace tcpdump listener ldap http; do
   stop_name "$name"
 done
 

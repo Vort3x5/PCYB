@@ -6,8 +6,12 @@
 oraz mitygacja. PoC: `VulnerableLogger` + Log4j 2.14.1; kontekst: Minecraft 1.16.5.
 
 ```bash
-nix develop -c ./scripts/run-full-lab.sh
+nix develop
+./scripts/setup-capture.sh   # pcap: CAP_NET_RAW na lokalnym tcpdump
+./scripts/run-full-lab.sh
 ```
+
+W Minecraft: `scripts/trigger-mc-chat.md` (RCON live feed etapów na czacie).
 
 ## Faza 2 (blue / purple)
 

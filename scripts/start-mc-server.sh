@@ -39,6 +39,9 @@ for i in $(seq 1 120); do
     echo "mc-server up pid=$(cat "$pf") log=$lf"
     echo "Connect a 1.16.5 client (offline) to ${PCYB_MC_SERVER_HOST}:${PCYB_MC_SERVER_PORT}"
     echo "Chat payload: $(jndi_payload)"
+    if [[ "${PCYB_MC_FEED:-1}" != "0" ]]; then
+      "$ROOT/scripts/start-mc-feed.sh" || echo "mc-feed pominięty (RCON?)" >&2
+    fi
     exit 0
   fi
   if grep -q "You need to agree to the EULA" "$lf" 2>/dev/null; then

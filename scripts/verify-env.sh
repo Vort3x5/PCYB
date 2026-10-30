@@ -21,6 +21,11 @@ check "java (jdk11)" bash -c 'java -version 2>&1 | grep -qE "version \"11|11\."'
 check "javac" bash -c 'javac -version >/dev/null 2>&1'
 check "tcpdump" bash -c 'command -v tcpdump >/dev/null'
 check "wireshark/tshark" bash -c 'command -v tshark >/dev/null || command -v wireshark >/dev/null'
+if [[ -x "$ROOT/run/bin/tcpdump" ]] && getcap "$ROOT/run/bin/tcpdump" 2>/dev/null | grep -q cap_net_raw; then
+  echo "OK  capture CAP_NET_RAW (run/bin/tcpdump)"
+else
+  echo "WARN capture bez CAP_NET_RAW — ./scripts/setup-capture.sh (inaczej brak .pcap)"
+fi
 check "netcat" bash -c 'command -v nc >/dev/null || command -v netcat >/dev/null'
 check "mvn" bash -c 'command -v mvn >/dev/null'
 check "LOG4J_CORE_JAR set" bash -c '[[ -n "${LOG4J_CORE_JAR:-}" && -f "$LOG4J_CORE_JAR" ]]'

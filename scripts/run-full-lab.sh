@@ -15,7 +15,9 @@ echo "== build =="
 ./scripts/build-all.sh
 
 echo "== monitoring + infra =="
-./scripts/start-monitor.sh || true
+if ! ./scripts/start-monitor.sh; then
+  echo "UWAGA: brak pcap — raz: ./scripts/setup-capture.sh  (potem ponów start-monitor)" >&2
+fi
 ./scripts/start-http-payload.sh
 ./scripts/start-ldap.sh
 ./scripts/start-listener.sh

@@ -50,6 +50,7 @@
         jdk11
         wireshark
         tcpdump
+        libcap  # setcap — scripts/setup-capture.sh
         nmap
         netcat-gnu
         curl

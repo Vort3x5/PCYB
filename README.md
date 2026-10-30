@@ -7,8 +7,11 @@ Zespół: **antena izotropowa 40dBi** · ścieżka indywidualna (red + blue/purp
 ```bash
 nix develop
 ./scripts/fetch-vendor.sh
+./scripts/setup-capture.sh   # raz: lokalny tcpdump + CAP_NET_RAW (sudo)
 ./scripts/run-full-lab.sh
 ```
+
+Minecraft (czat + live feed etapów): `scripts/trigger-mc-chat.md`.
 
 ## Faza 2 — detekcja / IR
 
