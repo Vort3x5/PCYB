@@ -1,53 +1,55 @@
 #!/usr/bin/env bash
-# Faza 2 (blue/purple): detekcja + timeline + kopie playbooka na podstawie evidence Fazy 1.
+# Faza 2 (blue): analiza oficjalnego pcapa od prowadzacej + playbook IR.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=lib.sh
 source "$ROOT/scripts/lib.sh"
 
-EVIDENCE="${1:-$ROOT/evidence}"
-OUT="$EVIDENCE/faza2"
+OUT="${1:-$ROOT/evidence/faza2}"
+PCAP_DEFAULT="$ROOT/res/faza2-instructor/PCYB_Faza2_26Z_25.pcap"
+PCAP="${PCYB_FAZA2_PCAP:-$PCAP_DEFAULT}"
+
 mkdir -p "$OUT"
 
-if [[ ! -d "$EVIDENCE" ]] || [[ -z "$(ls -A "$EVIDENCE" 2>/dev/null | grep -v faza2 || true)" ]]; then
-  echo "Brak artefaktów w $EVIDENCE — najpierw: ./scripts/run-full-lab.sh" >&2
+if [[ ! -f "$PCAP" ]]; then
+  echo "Brak pcapa Fazy 2: $PCAP" >&2
+  echo "Wroz pakiet od prowadzacej, np.:" >&2
+  echo "  unzip -o PCYB_Faza2_26Z_25.zip -d res/faza2-instructor" >&2
   exit 1
 fi
 
-echo "== detekcja =="
-python3 "$ROOT/scripts/detect-log4shell.py" "$EVIDENCE" --out "$OUT" || true
+if ! command -v tshark >/dev/null; then
+  echo "Potrzebny tshark (wejdź: nix develop)" >&2
+  exit 1
+fi
 
-echo "== timeline =="
-python3 "$ROOT/scripts/build-timeline.py" "$EVIDENCE" --out "$OUT"
+echo "== analiza pcapa =="
+python3 "$ROOT/scripts/analyze-faza2-pcap.py" "$PCAP" --out "$OUT"
 
-echo "== playbook =="
-cp -f "$ROOT/faza2/playbooks/ir-log4shell.md" "$OUT/ir-log4shell.md"
-cp -f "$ROOT/faza2/detections/suricata-log4shell.rules" "$OUT/suricata-log4shell.rules"
+echo "== playbook / reguly =="
+cp -f "$ROOT/faza2/playbooks/ir-qakbot.md" "$OUT/ir-qakbot.md"
+cp -f "$ROOT/faza2/detections/suricata-qakbot.rules" "$OUT/suricata-qakbot.rules"
 cp -f "$ROOT/faza2/detections/iocs.txt" "$OUT/iocs.txt"
+cp -f "$PCAP" "$OUT/PCYB_Faza2_26Z_25.pcap" 2>/dev/null || ln -sfn "$PCAP" "$OUT/PCYB_Faza2_26Z_25.pcap"
 
-# Krótki indeks Fazy 2
 {
-  echo "# Faza 2 — blue/purple (Log4Shell)"
+  echo "# Faza 2 - blue (pcap od prowadzacej)"
   echo
   echo "Wygenerowano: $(date -Is)"
   echo
   echo "## Pliki"
   echo
-  find "$OUT" -maxdepth 1 -type f | sort | while read -r f; do
+  find "$OUT" -maxdepth 1 -type f -o -maxdepth 1 -type l | sort | while read -r f; do
     echo "- \`$(basename "$f")\`"
   done
   echo
-  echo "## Playbook"
-  echo
-  echo "Patrz \`ir-log4shell.md\` (containment → eradication → recovery)."
+  echo "## Skrót detekcji"
   echo
   if [[ -f "$OUT/detections.md" ]]; then
-    echo "## Detekcja (skrót)"
-    echo
-    head -n 20 "$OUT/detections.md"
+    head -n 40 "$OUT/detections.md"
   fi
 } >"$OUT/INDEX.md"
 
 echo
-echo "OK — $OUT"
+echo "OK - $OUT"
 ls -la "$OUT"

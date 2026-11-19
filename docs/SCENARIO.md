@@ -1,31 +1,23 @@
-# Scenariusz lab — Log4Shell (CVE-2021-44228)
+# Scenariusz PCYB
 
-## Faza 1 (red)
+## Faza 1 (red) — Log4Shell
 
-Łańcuch: input → Log4j lookup → LDAP → HTTP `.class` → kod w JVM,
-oraz mitygacja. PoC: `VulnerableLogger` + Log4j 2.14.1; kontekst: Minecraft 1.16.5.
+Łańcuch: input -> Log4j lookup -> LDAP -> HTTP `.class` -> kod w JVM, oraz mitygacja.
 
 ```bash
 nix develop
-./scripts/setup-capture.sh   # pcap: CAP_NET_RAW na lokalnym tcpdump
+./scripts/setup-capture.sh
 ./scripts/run-full-lab.sh
 ```
 
-W Minecraft: `scripts/trigger-mc-chat.md` (RCON live feed etapów na czacie).
+## Faza 2 (blue) — pcap od prowadzącej
 
-## Faza 2 (blue / purple)
-
-Na artefaktach z `evidence/`: detekcja IOC, timeline, playbook IR.
+Wejście: `PCYB_Faza2_26Z_25.pcap` (infekcja Qakbot w AD `nutmeg-station.com`).
 
 ```bash
+nix develop
 ./scripts/run-faza2.sh
-# → evidence/faza2/
+# -> evidence/faza2/
 ```
 
-## Role
-
-| Rola | Adres | Składniki |
-|------|-------|-----------|
-| victim / mc-server | 10.42.0.10 / localhost | JDK11, Log4j 2.14.1 / MC 1.16.5 |
-| mc-client | 10.42.0.20 | klient MC 1.16.5 |
-| attacker | 10.42.0.30 / localhost | marshalsec :1389, HTTP :8888, listener :4444 |
+Ustalane m.in.: IP/hostname/user ofiary, czas startu UTC, rodzina malware, IOC C2/SMTP.

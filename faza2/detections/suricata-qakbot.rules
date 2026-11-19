@@ -1,0 +1,12 @@
+# Suricata - sygnalizacja typowych zachowan Qakbot widocznych w pcapie Fazy 2
+# (do demonstracji / laboratorium; nie uruchamiane mandatoryjnie)
+
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"PCYB Faza2 possible Qakbot payload HTTP GET .dat"; http.method; content:"GET"; http.uri; content:".dat"; classtype:trojan-activity; sid:2602501; rev:1;)
+
+alert dns $HOME_NET any -> any any (msg:"PCYB Faza2 Qakbot-like openssl connectivity check"; dns.query; content:"www.openssl.org"; classtype:trojan-activity; sid:2602502; rev:1;)
+
+alert dns $HOME_NET any -> any any (msg:"PCYB Faza2 Qakbot-like ipify check"; dns.query; content:"api.ipify.org"; classtype:trojan-activity; sid:2602503; rev:1;)
+
+alert tcp $HOME_NET any -> $EXTERNAL_NET 65400 (msg:"PCYB Faza2 Qakbot-like TCP/65400"; flags:S,12; classtype:trojan-activity; sid:2602504; rev:1;)
+
+alert smtp $HOME_NET any -> $EXTERNAL_NET any (msg:"PCYB Faza2 possible spambot SMTP EHLO from endpoint"; content:"EHLO"; classtype:trojan-activity; sid:2602505; rev:1;)

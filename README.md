@@ -1,37 +1,23 @@
-# Log4Shell (CVE-2021-44228) — Minecraft / PCYB
+# PCYB — antena izotropowa 40dBi
 
-Zespół: **antena izotropowa 40dBi** · ścieżka indywidualna (red + blue/purple)
-
-## Faza 1 — atak
+## Faza 1 — Log4Shell (red)
 
 ```bash
 nix develop
 ./scripts/fetch-vendor.sh
-./scripts/setup-capture.sh   # raz: lokalny tcpdump + CAP_NET_RAW (sudo)
+./scripts/setup-capture.sh
 ./scripts/run-full-lab.sh
 ```
 
-Minecraft (czat + live feed etapów): `scripts/trigger-mc-chat.md`.
+## Faza 2 — analiza pcapa (blue)
 
-## Faza 2 — detekcja / IR
+Materiał od prowadzącej: `PCYB_Faza2_26Z_25.zip` (pcap Qakbot / nutmeg-station).
 
 ```bash
+nix develop
+unzip -o PCYB_Faza2_26Z_25.zip -d res/faza2-instructor
 ./scripts/run-faza2.sh
-# wyniki: evidence/faza2/
+# wyniki: evidence/faza2/{detections,timeline,findings,...}
 ```
 
-Dokumenty: `docs/zespol.typ` → `./scripts/build-docs.sh` → `docs/out/*.pdf`.
-
-## Podział
-
-| Osoba | Faza 1 | Faza 2 |
-|-------|--------|--------|
-| Piotr Świtaj | środowisko, topologia | powtarzalność labu na VM |
-| Michał Kopyciński | atak Log4Shell, mitygacja | artefakty pod analizę |
-| Szymon Boniuk | monitoring, dokumentacja | detekcja, timeline, raport F2 |
-
-Szczegóły: [`docs/SCENARIO.md`](docs/SCENARIO.md).
-
-```bash
-./scripts/stop-lab.sh
-```
+Dokumenty: `docs/raport-faza1.typ`, `docs/raport-faza2.typ`.

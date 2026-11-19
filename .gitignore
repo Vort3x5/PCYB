@@ -7,6 +7,7 @@ evidence/
 # Wygenerowane PDF-y Typst (źródła .typ idą do gita)
 docs/out/
 docs/*.pdf
+oddanie/
 
 # Zrzuty — trzymajcie lokalnie albo dodawajcie świadomie (odkomentujcie regułę poniżej jeśli chcecie commitować figures/)
 # docs/figures/*.png

@@ -2,7 +2,7 @@
 #let semestr = "26Z"
 #let nazwa-zespolu = "antena izotropowa 40dBi"
 #let kierunek = "Telekomunikacja"
-#let data-dokumentu = "19.10.2026"
+#let data-dokumentu = "19.11.2026"
 
 #let czlonkowie = (
   (imie: "Szymon", nazwisko: "Boniuk", indeks: "337314"),
@@ -13,23 +13,25 @@
 #let podzial = (
   (
     osoba: "Piotr Świtaj",
-    zakres: "Konfiguracja środowiska labowego, topologia, uruchomienie u zespołu (F1+F2).",
+    zakres: "Konfiguracja środowiska labowego, topologia, uruchomienie u zespołu.",
   ),
   (
     osoba: "Michał Kopyciński",
-    zakres: "Atak Log4Shell i mitygacja (F1); odtworzenie artefaktów pod analizę (F2).",
+    zakres: "Realizacja ataku Log4Shell oraz demonstracja mitygacji.",
+
   ),
   (
     osoba: "Szymon Boniuk",
-    zakres: "Monitoring i raport F1; detekcja, timeline, playbook IR, raport F2.",
+    zakres: "Monitoring, zbieranie dowodów, dokumentacja i raport Fazy 1.",
   ),
 )
 
+
 #let sprzet = (
-  cpu: "",
-  ram: "",
-  gpu: "",
-  dysk: "VM",
-  os: "Linux",
-  kernel: "",
+  cpu: "AMD Ryzen 7 7800X3D (8 rdzeni)",
+  ram: "32 GB",
+  gpu: "NVIDIA GeForce RTX 4070 SUPER",
+  dysk: "NVMe 2 TB (KINGSTON SKC3000D2048G), lab lokalny (localhost)",
+  os: "NixOS 26.05 (Yarara)",
+  kernel: "Linux 6.18.56",
 )

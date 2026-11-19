@@ -1,15 +1,17 @@
-# Wskaźniki Log4Shell — skanowane przez scripts/detect-log4shell.py
-# Jedna linia = jeden wzorzec (podciąg, case-insensitive), # = komentarz
+# IOC / wzorce pod analizę pcapa Fazy 2 (Qakbot)
+# Jedna linia = jeden wskaźnik (komentarz: #)
 
-${jndi:ldap://
-${jndi:rmi://
-${jndi:dns://
-${jndi:ldaps://
-${::-j}ndi
-${lower:${jndi
-Exploit.class
-marshalsec
-LDAP reference result
-redirecting to http://
-pwned
-trustURLCodebase
+185.183.99.115
+45.32.211.207
+54.36.108.120
+172.17.4.206
+DESKTOP-V0FEH1L
+alfonso.paternoster
+nutmeg-station.com
+www.openssl.org
+api.ipify.org
+mail.smtp2go.com
+ecoleafdevtcorp.com
+tcp/65400
+Qakbot
+Qbot

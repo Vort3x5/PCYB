@@ -15,13 +15,15 @@
   v(0.6em)
   [*Członkowie zespołu*]
   enum(
-    ..czlonkowie.map(c => [#c.imie #c.nazwisko — #c.indeks]),
+    ..czlonkowie.map(c => [#c.imie #c.nazwisko, #c.indeks]),
+
   )
   v(0.8em)
 }
 
 #let podzial-section() = {
-  heading(level: 2)[Podział odpowiedzialności]
+  heading(level: 1)[Podział odpowiedzialności]
+
   table(
     columns: (1.2fr, 2fr),
     stroke: 0.5pt,
